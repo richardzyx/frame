@@ -1,5 +1,6 @@
 'use strict';
-
+const Joi = require('joi');
+const Boom = require('boom');
 
 exports.register = function (server, options, next) {
 
@@ -9,7 +10,15 @@ exports.register = function (server, options, next) {
         config: {
             description: 'Welcome, try a simple GET',
             notes: 'Returns a message',
-            tags: ['api']
+            tags: ['api'],
+            response: {
+                schema: responseModel,
+                failAction: function (request, reply, source, error) {
+
+                    server.log(['error'], source);
+                    return reply(Boom.badRequest(source));
+                }
+            }
         },
         handler: function (request, reply) {
 
@@ -21,6 +30,9 @@ exports.register = function (server, options, next) {
     next();
 };
 
+const responseModel = Joi.object({
+    message: Joi.string().label('Message')
+}).options({ abortEarly: false });
 
 exports.register.attributes = {
     name: 'index'
