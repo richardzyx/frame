@@ -19,19 +19,11 @@ const manifest = {
         }
     },
     connections: [{
-        $filter: 'env',
-        production: {
-            port: Config.get('/port/web'),
-            tls: Config.get('/tls'),
-            labels: ['web']
-        },
-        test: {
-            port: Config.get('/port/web'),
-            labels: ['web']
-        },
-        $default: {
-            port: Config.get('/port/web'),
-            labels: ['web']
+        port: Config.get('/port/web'),
+        labels: ['web'],
+        tls: {
+            $filter: 'env',
+            production: Config.get('/tls')
         }
     }],
     registrations: [
@@ -66,7 +58,7 @@ const manifest = {
                         console: [{
                             module: 'good-squeeze',
                             name: 'Squeeze',
-                            args: [{ log: '*', error: '*', request: '*', response: '*', ops: '*' }]
+                            args: [{ log: '*', error: '*', request: '*', response: '*' }]
                         }, {
                             module: 'good-console'
                         }, 'stdout']
