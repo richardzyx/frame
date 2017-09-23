@@ -28,6 +28,10 @@ const manifest = {
         test: {
             port: Config.get('/port/web'),
             labels: ['web']
+        },
+        $default: {
+            port: Config.get('/port/web'),
+            labels: ['web']
         }
     }],
     registrations: [
