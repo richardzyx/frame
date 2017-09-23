@@ -20,6 +20,7 @@ internals.applyRoutes = function (server, next) {
                 strategy: 'simple',
                 scope: 'admin'
             },
+            tags: ['api'],
             validate: {
                 query: {
                     username: Joi.string().token().lowercase(),
@@ -68,10 +69,16 @@ internals.applyRoutes = function (server, next) {
         method: 'GET',
         path: '/users/{id}',
         config: {
+            validate: {
+                params: {
+                    id: Joi.string().invalid('000000000000000000000000')
+                }
+            },
             auth: {
                 strategy: 'simple',
                 scope: 'admin'
             },
+            tags: ['api'],
             pre: [
                 AuthPlugin.preware.ensureAdminGroup('root')
             ]
@@ -98,6 +105,7 @@ internals.applyRoutes = function (server, next) {
         method: 'GET',
         path: '/users/my',
         config: {
+            tags: ['api'],
             auth: {
                 strategy: 'simple',
                 scope: ['admin', 'account']
@@ -132,6 +140,7 @@ internals.applyRoutes = function (server, next) {
                 strategy: 'simple',
                 scope: 'admin'
             },
+            tags: ['api'],
             validate: {
                 payload: {
                     username: Joi.string().token().lowercase().required(),
@@ -212,6 +221,7 @@ internals.applyRoutes = function (server, next) {
                 strategy: 'simple',
                 scope: 'admin'
             },
+            tags: ['api'],
             validate: {
                 params: {
                     id: Joi.string().invalid('000000000000000000000000')
@@ -306,6 +316,7 @@ internals.applyRoutes = function (server, next) {
                 strategy: 'simple',
                 scope: ['admin', 'account']
             },
+            tags: ['api'],
             validate: {
                 payload: {
                     username: Joi.string().token().lowercase().required(),
@@ -394,6 +405,7 @@ internals.applyRoutes = function (server, next) {
                 strategy: 'simple',
                 scope: 'admin'
             },
+            tags: ['api'],
             validate: {
                 params: {
                     id: Joi.string().invalid('000000000000000000000000')
@@ -449,6 +461,7 @@ internals.applyRoutes = function (server, next) {
                 strategy: 'simple',
                 scope: ['admin', 'account']
             },
+            tags: ['api'],
             validate: {
                 payload: {
                     password: Joi.string().required()
@@ -504,6 +517,7 @@ internals.applyRoutes = function (server, next) {
                 strategy: 'simple',
                 scope: 'admin'
             },
+            tags: ['api'],
             validate: {
                 params: {
                     id: Joi.string().invalid('000000000000000000000000')

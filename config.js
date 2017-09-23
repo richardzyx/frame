@@ -1,12 +1,22 @@
 'use strict';
 const Confidence = require('confidence');
 const Dotenv = require('dotenv');
-
+const Fs = require('fs');
 
 Dotenv.config({ silent: true });
 
 const criteria = {
     env: process.env.NODE_ENV
+};
+
+const getTlsOptions = function () {
+
+    if (process.env.NODE_ENV && process.env.NODE_ENV.toString() === 'production'){
+        return {
+            key: Fs.readFileSync('/to/your/key.pem', 'utf8'),
+            cert: Fs.readFileSync('/to/your/certificate.pem', 'utf8')
+        };
+    }
 };
 
 
@@ -20,6 +30,11 @@ const config = {
             production: process.env.PORT,
             $default: 9000
         }
+    },
+    tls: {
+        $filter: 'env',
+        production:  getTlsOptions(),
+        $default: {}
     },
     authAttempts: {
         forIp: 50,

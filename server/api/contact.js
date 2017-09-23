@@ -12,6 +12,7 @@ internals.applyRoutes = function (server, next) {
         method: 'POST',
         path: '/contact',
         config: {
+            tags: ['api'],
             validate: {
                 payload: {
                     name: Joi.string().required(),

@@ -2,17 +2,15 @@
 const Confidence = require('confidence');
 const Config = require('./config');
 
-
 const criteria = {
     env: process.env.NODE_ENV
 };
-
 
 const manifest = {
     $meta: 'This file defines the plot device.',
     server: {
         debug: {
-            request: ['error']
+            request: ['error', 'uncaught']
         },
         connections: {
             routes: {
@@ -21,8 +19,16 @@ const manifest = {
         }
     },
     connections: [{
-        port: Config.get('/port/web'),
-        labels: ['web']
+        $filter: 'env',
+        production: {
+            port: Config.get('/port/web'),
+            tls: Config.get('/tls'),
+            labels: ['web']
+        },
+        test: {
+            port: Config.get('/port/web'),
+            labels: ['web']
+        }
     }],
     registrations: [
         {
@@ -36,6 +42,33 @@ const manifest = {
         },
         {
             plugin: 'vision'
+        },
+        {
+            plugin: {
+                register: 'hapi-swagger',
+                options: {
+                    info:{
+                        title: 'HTS API Documentation',
+                        version: '1'
+                    }
+                }
+            }
+        },
+        {
+            plugin: {
+                register: 'good',
+                options: {
+                    reporters: {
+                        console: [{
+                            module: 'good-squeeze',
+                            name: 'Squeeze',
+                            args: [{ log: '*', error: '*', request: '*', response: '*', ops: '*' }]
+                        }, {
+                            module: 'good-console'
+                        }, 'stdout']
+                    }
+                }
+            }
         },
         {
             plugin: {
@@ -150,7 +183,6 @@ const manifest = {
 
 
 const store = new Confidence.Store(manifest);
-
 
 exports.get = function (key) {
 

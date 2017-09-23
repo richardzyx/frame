@@ -16,6 +16,7 @@ internals.applyRoutes = function (server, next) {
         method: 'GET',
         path: '/sessions',
         config: {
+            tags: ['api'],
             auth: {
                 strategy: 'simple',
                 scope: 'admin'
@@ -56,10 +57,16 @@ internals.applyRoutes = function (server, next) {
         method: 'GET',
         path: '/sessions/{id}',
         config: {
+            validate: {
+                params: {
+                    id: Joi.string().invalid('000000000000000000000000')
+                }
+            },
             auth: {
                 strategy: 'simple',
                 scope: 'admin'
             },
+            tags: ['api'],
             pre: [
                 AuthPlugin.preware.ensureAdminGroup('root')
             ]
@@ -89,6 +96,12 @@ internals.applyRoutes = function (server, next) {
             auth: {
                 strategy: 'simple',
                 scope: 'admin'
+            },
+            tags: ['api'],
+            validate: {
+                params: {
+                    id: Joi.string().invalid('000000000000000000000000')
+                }
             },
             pre: [
                 AuthPlugin.preware.ensureAdminGroup('root')

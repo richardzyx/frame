@@ -14,6 +14,7 @@ internals.applyRoutes = function (server, next) {
         method: 'DELETE',
         path: '/logout',
         config: {
+            tags: ['api'],
             auth: {
                 mode: 'try',
                 strategy: 'simple'

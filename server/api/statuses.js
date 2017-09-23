@@ -30,7 +30,8 @@ internals.applyRoutes = function (server, next) {
             },
             pre: [
                 AuthPlugin.preware.ensureAdminGroup('root')
-            ]
+            ],
+            tags: ['api']
         },
         handler: function (request, reply) {
 
@@ -56,6 +57,11 @@ internals.applyRoutes = function (server, next) {
         method: 'GET',
         path: '/statuses/{id}',
         config: {
+            validate: {
+                params: {
+                    id: Joi.string().invalid('000000000000000000000000')
+                }
+            },
             auth: {
                 strategy: 'simple',
                 scope: 'admin'
@@ -126,6 +132,9 @@ internals.applyRoutes = function (server, next) {
                 scope: 'admin'
             },
             validate: {
+                params: {
+                    id: Joi.string().invalid('000000000000000000000000')
+                },
                 payload: {
                     name: Joi.string().required()
                 }
@@ -163,6 +172,11 @@ internals.applyRoutes = function (server, next) {
         method: 'DELETE',
         path: '/statuses/{id}',
         config: {
+            validate: {
+                params: {
+                    id: Joi.string().invalid('000000000000000000000000')
+                }
+            },
             auth: {
                 strategy: 'simple',
                 scope: 'admin'

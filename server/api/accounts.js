@@ -23,6 +23,7 @@ internals.applyRoutes = function (server, next) {
                 strategy: 'simple',
                 scope: 'admin'
             },
+            tags: ['api'],
             validate: {
                 query: {
                     fields: Joi.string(),
@@ -56,10 +57,16 @@ internals.applyRoutes = function (server, next) {
         method: 'GET',
         path: '/accounts/{id}',
         config: {
+            validate: {
+                params: {
+                    id: Joi.string().required()
+                }
+            },
             auth: {
                 strategy: 'simple',
                 scope: 'admin'
-            }
+            },
+            tags: ['api']
         },
         handler: function (request, reply) {
 
@@ -86,7 +93,8 @@ internals.applyRoutes = function (server, next) {
             auth: {
                 strategy: 'simple',
                 scope: 'account'
-            }
+            },
+            tags: ['api']
         },
         handler: function (request, reply) {
 
@@ -117,6 +125,7 @@ internals.applyRoutes = function (server, next) {
                 strategy: 'simple',
                 scope: 'admin'
             },
+            tags: ['api'],
             validate: {
                 payload: {
                     name: Joi.string().required()
@@ -147,7 +156,11 @@ internals.applyRoutes = function (server, next) {
                 strategy: 'simple',
                 scope: 'admin'
             },
+            tags: ['api'],
             validate: {
+                params: {
+                    id: Joi.string().required()
+                },
                 payload: {
                     name: Joi.object().keys({
                         first: Joi.string().required(),
@@ -190,6 +203,7 @@ internals.applyRoutes = function (server, next) {
                 strategy: 'simple',
                 scope: 'account'
             },
+            tags: ['api'],
             validate: {
                 payload: {
                     name: Joi.object().keys({
@@ -232,7 +246,11 @@ internals.applyRoutes = function (server, next) {
                 strategy: 'simple',
                 scope: 'admin'
             },
+            tags: ['api'],
             validate: {
+                params: {
+                    id: Joi.string().required()
+                },
                 payload: {
                     username: Joi.string().lowercase().required()
                 }
@@ -343,6 +361,12 @@ internals.applyRoutes = function (server, next) {
                 strategy: 'simple',
                 scope: 'admin'
             },
+            tags: ['api'],
+            validate: {
+                params: {
+                    id: Joi.string().required()
+                }
+            },
             pre: [{
                 assign: 'account',
                 method: function (request, reply) {
@@ -428,7 +452,11 @@ internals.applyRoutes = function (server, next) {
                 strategy: 'simple',
                 scope: 'admin'
             },
+            tags: ['api'],
             validate: {
+                params: {
+                    id: Joi.string().required()
+                },
                 payload: {
                     data: Joi.string().required()
                 }
@@ -470,7 +498,11 @@ internals.applyRoutes = function (server, next) {
                 strategy: 'simple',
                 scope: 'admin'
             },
+            tags: ['api'],
             validate: {
+                params: {
+                    id: Joi.string().required()
+                },
                 payload: {
                     status: Joi.string().required()
                 }
@@ -527,10 +559,16 @@ internals.applyRoutes = function (server, next) {
         method: 'DELETE',
         path: '/accounts/{id}',
         config: {
+            validate: {
+                params: {
+                    id: Joi.string().required()
+                }
+            },
             auth: {
                 strategy: 'simple',
                 scope: 'admin'
             },
+            tags: ['api'],
             pre: [
                 AuthPlugin.preware.ensureAdminGroup('root')
             ]

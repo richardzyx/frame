@@ -20,6 +20,7 @@ internals.applyRoutes = function (server, next) {
         method: 'POST',
         path: '/login',
         config: {
+            tags: ['api'],
             validate: {
                 payload: {
                     username: Joi.string().lowercase().required(),
@@ -120,6 +121,7 @@ internals.applyRoutes = function (server, next) {
         method: 'POST',
         path: '/login/forgot',
         config: {
+            tags: ['api'],
             validate: {
                 payload: {
                     email: Joi.string().email().lowercase().required()
@@ -200,6 +202,7 @@ internals.applyRoutes = function (server, next) {
         method: 'POST',
         path: '/login/reset',
         config: {
+            tags: ['api'],
             validate: {
                 payload: {
                     key: Joi.string().required(),

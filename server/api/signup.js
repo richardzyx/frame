@@ -19,6 +19,12 @@ internals.applyRoutes = function (server, next) {
         method: 'POST',
         path: '/signup',
         config: {
+            tags: ['api'],
+            description: 'Sign up & get auth',
+            notes: 'By default Frame uses basic authentication. As a convenience, ' +
+            'we include an authHeader property. You can use this value to create an Authorization header' +
+            ' for future requests. The session._id and the session.key properties make up the username and ' +
+            'password parts of the basic authentication credentials.',
             validate: {
                 payload: {
                     name: Joi.string().required(),

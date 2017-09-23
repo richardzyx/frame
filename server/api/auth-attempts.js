@@ -20,6 +20,7 @@ internals.applyRoutes = function (server, next) {
                 strategy: 'simple',
                 scope: 'admin'
             },
+            tags: ['api'],
             validate: {
                 query: {
                     fields: Joi.string(),
@@ -60,6 +61,12 @@ internals.applyRoutes = function (server, next) {
                 strategy: 'simple',
                 scope: 'admin'
             },
+            validate: {
+                params: {
+                    id: Joi.string().invalid('000000000000000000000000')
+                }
+            },
+            tags: ['api'],
             pre: [
                 AuthPlugin.preware.ensureAdminGroup('root')
             ]
@@ -90,6 +97,12 @@ internals.applyRoutes = function (server, next) {
                 strategy: 'simple',
                 scope: 'admin'
             },
+            validate: {
+                params: {
+                    id: Joi.string().invalid('000000000000000000000000')
+                }
+            },
+            tags: ['api'],
             pre: [
                 AuthPlugin.preware.ensureAdminGroup('root')
             ]
