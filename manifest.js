@@ -40,7 +40,7 @@ const manifest = {
                 register: 'hapi-swagger',
                 options: {
                     info:{
-                        title: 'HTS API Documentation',
+                        title: 'Frame API Documentation',
                         version: '1'
                     }
                 }
