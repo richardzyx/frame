@@ -10,7 +10,7 @@ const manifest = {
     $meta: 'This file defines the plot device.',
     server: {
         debug: {
-            request: ['error', 'uncaught']
+            request: ['error']
         },
         connections: {
             routes: {
@@ -20,11 +20,7 @@ const manifest = {
     },
     connections: [{
         port: Config.get('/port/web'),
-        labels: ['web'],
-        tls: {
-            $filter: 'env',
-            production: Config.get('/tls')
-        }
+        labels: ['web']
     }],
     registrations: [
         {
@@ -46,22 +42,6 @@ const manifest = {
                     info:{
                         title: 'HTS API Documentation',
                         version: '1'
-                    }
-                }
-            }
-        },
-        {
-            plugin: {
-                register: 'good',
-                options: {
-                    reporters: {
-                        console: [{
-                            module: 'good-squeeze',
-                            name: 'Squeeze',
-                            args: [{ log: '*', error: '*', request: '*', response: '*' }]
-                        }, {
-                            module: 'good-console'
-                        }, 'stdout']
                     }
                 }
             }
